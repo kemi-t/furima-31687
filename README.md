@@ -17,17 +17,17 @@
 - has_many :liquidations
 
 ## items テーブル
-| Column       | Type          | Options                        |
-| ------------ | ------------- | ------------------------------ |
-| name         | string        | null: false                    |
-| description  | text          | null: false                    |
-| category     | integer       | null: false                    |
-| condition    | integer       | null: false                    |
-| price        | integer       | null: false                    |
-| shipping     | integer       | null: false                    |
-| prefecture   | integer       | null: false                    |
-| days_to_ship | integer       | null: false                    |
-| user         | references    | null: false, foreign_key: true |
+| Column          | Type          | Options                        |
+| --------------- | ------------- | ------------------------------ |
+| name            | string        | null: false                    |
+| description_id  | text          | null: false                    |
+| category_id     | integer       | null: false                    |
+| condition_id    | integer       | null: false                    |
+| price           | integer       | null: false                    |
+| shipping_id     | integer       | null: false                    |
+| prefecture_id   | integer       | null: false                    |
+| days_to_ship_id | integer       | null: false                    |
+| user_id         | references    | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -36,31 +36,34 @@
 - belongs_to :shipping
 - belongs_to :prefecture
 - belongs_to :days_to_ship
+- has_one :liquidation
 
 
 ## orders テーブル
-| Column        | Type        | Options                        |
-| ------------- | ----------- | ------------------------------ |
-| postal_code   | string      | null: false                    |
-| address_after | string      | null: false                    |
-| building_name | string      | null: false                    |
-| phone_number  | string      | null: false                    |
+| Column         | Type        | Options                        |
+| -------------- | ----------- | ------------------------------ |
+| postal_code    | string      | null: false                    |
+| prefecture_id  | integer     | null: false                    |
+| municipality   | string      | null: false                    |
+| address        | string      | null: false                    |
+| building_name  | string      |                                |
+| phone_number   | string      | null: false                    |
+| liquidation_id | references  | null: false, foreign_key: true |
 
 ### Association
-- has_one :liquidation
+- belongs_to :liquidation
+- belongs_to :prefecture
 
 ## liquidations テーブル
 | Column             | Type        | Options                        |
 | ------------------ | ----------- | ------------------------------ |
-| credit_card_number | string      | null: false                    |
-| expiration         | string      | null: false                    |
-| security_code      | string      | null: false                    |
-| user               | references  | null: false, foreign_key: true |
-| order              | references  | null: false, foreign_key: true |
+| user_id            | references  | null: false, foreign_key: true |
+| items_id           | references  | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
-- belongs_to :order
+- belongs_to :items
+- has_one :order
 
 
 ## categorys (active_hash)
@@ -82,3 +85,4 @@
 ## prefectures (active_hash)
 ### Association
 - has_many :items
+- has_many :orders
