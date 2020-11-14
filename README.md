@@ -17,19 +17,6 @@
 - has_many :items
 - has_many :liquidations
 
-## profiles テーブル
-| Column           | Type            | Options                        |
-| ---------------- | --------------- | ------------------------------ |
-| first_name       | string          | null: false                    |
-| last_name        | string          | null: false                    |
-| first_name_kana  | string          | null: false                    |
-| last_name_kana   | string          | null: false                    |
-| birthday         | data            | null: false                    |
-| user             | references      | null: false, foreign_key: true |
-
-### Association
-- belongs_to :user
-
 ## items テーブル
 | Column       | Type          | Options                        |
 | ------------ | ------------- | ------------------------------ |
