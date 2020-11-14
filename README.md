@@ -1,16 +1,20 @@
 # テーブル設計
 
 ## users テーブル
-| Column   | Type   | Options     |
-| -------- | ------ | ----------- |
-| nickname | string | null: false |
-| email    | string | null: false |
-| password | string | null: false |
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| nickname           | string | null: false |
+| email              | string | null: false |
+| password           | string | null: false |
+| encrypted_password | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
+| first_name_kana    | string | null: false |
+| last_name_kana     | string | null: false |
+| birthday           | data   | null: false |
 
 ### Association
-- has_one :profile
 - has_many :items
-- has_many :orders
 - has_many :liquidations
 
 ## profiles テーブル
@@ -29,15 +33,14 @@
 ## items テーブル
 | Column       | Type          | Options                        |
 | ------------ | ------------- | ------------------------------ |
-| image        | ActiveStorage | null: false                    |
 | name         | string        | null: false                    |
 | description  | text          | null: false                    |
-| category     | references    | null: false, foreign_key: true |
-| condition    | references    | null: false, foreign_key: true |
+| category     | integer       | null: false                    |
+| condition    | integer       | null: false                    |
 | price        | integer       | null: false                    |
-| shipping     | references    | null: false, foreign_key: true |
-| prefecture   | references    | null: false, foreign_key: true |
-| days_to_ship | references    | null: false, foreign_key: true |
+| shipping     | integer       | null: false                    |
+| prefecture   | integer       | null: false                    |
+| days_to_ship | integer       | null: false                    |
 | user         | references    | null: false, foreign_key: true |
 
 ### Association
@@ -47,26 +50,19 @@
 - belongs_to :shipping
 - belongs_to :prefecture
 - belongs_to :days_to_ship
-- has_many :orders
 
 
 ## orders テーブル
 | Column        | Type        | Options                        |
 | ------------- | ----------- | ------------------------------ |
-| postal_code   | varchar(7)  | null: false                    |
-| prefecture    | references  | null: false, foreign_key: true |
+| postal_code   | string      | null: false                    |
+| prefecture    | integer     | null: false                    |
 | address_after | string      | null: false                    |
 | building_name | string      | null: false                    |
-| phone_number  | varchar(11) | null: false                    |
-| user          | references  | null: false, foreign_key: true |
-| items         | references  | null: false, foreign_key: true |
-| liquidation   | references  | null: false, foreign_key: true |
+| phone_number  | string      | null: false                    |
 
 ### Association
-- belongs_to :prefecture
-- belongs_to :user
-- belongs_to :item
-- belongs_to :liquidation
+- has_one :liquidation
 
 ## liquidations テーブル
 | Column             | Type        | Options                        |
@@ -75,10 +71,11 @@
 | expiration         | string      | null: false                    |
 | security_code      | string      | null: false                    |
 | user               | references  | null: false, foreign_key: true |
+| order              | references  | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
-- has_many :orders
+- belongs_to :order
 
 
 ## categorys (active_hash)
@@ -100,4 +97,3 @@
 ## prefectures (active_hash)
 ### Association
 - has_many :items
-- has_many :orders
