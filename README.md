@@ -43,7 +43,6 @@
 | Column        | Type        | Options                        |
 | ------------- | ----------- | ------------------------------ |
 | postal_code   | string      | null: false                    |
-| prefecture    | integer     | null: false                    |
 | address_after | string      | null: false                    |
 | building_name | string      | null: false                    |
 | phone_number  | string      | null: false                    |
