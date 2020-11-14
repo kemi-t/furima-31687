@@ -5,7 +5,7 @@
 | ------------------ | ------ | ----------- |
 | nickname           | string | null: false |
 | email              | string | null: false |
-| password           | string | null: false |
+| encrypted_password | string | null: false |
 | first_name         | string | null: false |
 | last_name          | string | null: false |
 | first_name_kana    | string | null: false |
@@ -27,7 +27,7 @@
 | shipping_id     | integer       | null: false                    |
 | prefecture_id   | integer       | null: false                    |
 | days_to_ship_id | integer       | null: false                    |
-| user_id         | references    | null: false, foreign_key: true |
+| user            | references    | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -48,7 +48,7 @@
 | address        | string      | null: false                    |
 | building_name  | string      |                                |
 | phone_number   | string      | null: false                    |
-| liquidation_id | references  | null: false, foreign_key: true |
+| liquidation    | references  | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :liquidation
@@ -57,12 +57,12 @@
 ## liquidations テーブル
 | Column             | Type        | Options                        |
 | ------------------ | ----------- | ------------------------------ |
-| user_id            | references  | null: false, foreign_key: true |
-| items_id           | references  | null: false, foreign_key: true |
+| user               | references  | null: false, foreign_key: true |
+| item               | references  | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
-- belongs_to :items
+- belongs_to :item
 - has_one :order
 
 
