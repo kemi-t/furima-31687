@@ -12,11 +12,12 @@ RSpec.describe User, type: :model do
           first_name、last_name、first_name_kana、last_name_kana、birthday" do
         expect(@user).to be_valid
       end
-      it 'passwordが6文字以上あれば登録できる' do
-        @user.password = 'aaa111'
-        @user.password_confirmation = 'aaa111'
-        expect(@user).to be_valid
-      end
+      #仕様上、下記のようなテストは上記テスト内で確認できる、重複した確認になるのでしなくて良い！
+      # it 'passwordが6文字以上あれば登録できる' do
+      #   @user.password = 'aaa111'
+      #   @user.password_confirmation = 'aaa111'
+      #   expect(@user).to be_valid
+      # end
     end
     context '新規登録がうまくいかないとき' do
       it 'nicknameが空だと登録できない' do
@@ -49,6 +50,11 @@ RSpec.describe User, type: :model do
       it 'passwordが英数字混合でないと登録できない' do
         @user.password = 'aaaaaa'
         @user.password_confirmation = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
+        # 元々、下の数字だけの確認は記述していなかった。上記だけでなく確実な信頼性向上の為には、セットで確認すべきところは押さえよう！
+        @user.password = '111111'
+        @user.password_confirmation = '111111'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password には英字と数字の両方を含めて設定してください')
       end
@@ -183,3 +189,4 @@ RSpec.describe User, type: :model do
     end
   end
 end
+
