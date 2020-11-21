@@ -17,7 +17,7 @@ class User < ApplicationRecord
       validates :last_name
     end
     # ユーザー本名のフリガナは、全角（カタカナ）での入力が必須であること
-    with_options presence: true, format: { with: /\A[ァ-ン]+\z/, message: '全角カナを使用してください' } do
+    with_options format: { with: /\A[ァ-ン]+\z/, message: '全角カナを使用してください' } do
       validates :first_name_kana
       validates :last_name_kana
     end
