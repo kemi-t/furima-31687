@@ -9,6 +9,8 @@ class Item < ApplicationRecord
   belongs_to :prefecture
 
   with_options presence: true do
+    # ActiveStorageで使用することとしたimageについてもバリデーションはこのmodelに定義する
+    validates :image
     validates :name
     validates :description
     validates :price,     numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
