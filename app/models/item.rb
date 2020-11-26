@@ -13,6 +13,10 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :description
+    # numericality:の引数によって様々な効果を適用させいる。デフォルトでpresence: tureの効果を保持している為、記述はしなくても良い。
+      # only_integer: true　整数でのみ許可
+      # greater_than_or_equal_to: ***　最小で***以上の数値から許可
+      # less_than_or_equal_to: ***　最大で***以下の数値まで許可
     validates :price,     numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
   end
 
